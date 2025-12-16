@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for film in film %}
+        <p>{{film.name}} - {{film.slug}}</p>
+    {% empty %}
+        <p>No films were found!</p>
+    {% endfor %}
+
+{% endblock %}

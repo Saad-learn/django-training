@@ -1,0 +1,78 @@
+STATIC_URL, STATICFILES_DIRS, collectstatic:
+What are Static Files?
+Static files are files that do not change:
+CSS
+JavaScript
+Images (logos, icons)
+Fonts
+
+STATIC_URL:
+Defined in settings.py
+STATIC_URL = '/static/'
+
+Meaning:
+URL prefix for static files
+Browser accesses static files using this path
+
+Example:
+/static/css/style.css
+
+STATICFILES_DIRS:
+Tells Django where to find static files during development.
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+Folder structure:
+project/
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── script.js
+│   └── images/
+│       └── logo.png
+
+collectstatic:
+Used in production.
+python manage.py collectstati
+
+What it does:
+Collects all static files
+Puts them into STATIC_ROOT
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+Not required during development.
+
+2. Serving Media Files:
+What are Media Files?
+Media files are user-uploaded files:
+Profile pictures
+Uploaded images
+Documents
+
+Media Settings (settings.py):
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+Folder created automatically:
+media/
+└── uploads/
+
+Project-level urls.py:
+Required to serve media during development:
+from django.conf import settings
+from django.conf.urls.static import static
+urlpatterns = [
+    # your urls
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+Uploading Images (Basic)
+
+Django uses:
+ImageField
+Forms
+enctype="multipart/form-data"

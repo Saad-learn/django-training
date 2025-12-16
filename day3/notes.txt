@@ -1,0 +1,81 @@
+
+URL Patterns in Django:
+URL patterns define how URLs are mapped to views.
+Where they are defined:
+project/urls.py (main router)
+app/urls.py (app-level routing)
+Basic structure:
+from django.urls import path
+from . import views
+urlpatterns = [
+    path('home/', views.home, name='home'),
+]
+
+Purpose:
+Matches a URL
+Calls the corresponding view
+Sends request data to that view
+
+2. Path Converters (int, slug, uuid):
+Path converters capture dynamic values from the URL and pass them to views.
+
+Common converters:
+Converter	Example	            Use
+int	         10	IDs,            numbers
+str	         hello	            Text
+slug	     my-post-1	        SEO URLs
+uuid	     550e8400-e29b...	Unique IDs
+Syntax:
+path('post/<int:id>/', views.post_detail)
+
+3. Function-Based Views (FBV)
+Function-Based Views are Python functions that:
+Accept an HTTP request
+Process logic
+Return a response
+
+Example:
+def home(request):
+    return HttpResponse("Hello Django")
+
+Advantages:
+Simple and readable
+Best for beginners
+Easy to debug
+
+4. HttpResponse & JsonResponse
+HttpResponse
+Used to return HTML or plain text.
+from django.http import HttpResponse
+return HttpResponse("<h1>Hello World</h1>")
+
+JsonResponse
+Used to return JSON data (APIs).
+from django.http import JsonResponse
+return JsonResponse({'name': 'Django', 'version': 4})
+
+5. Request Object Basics
+The request object contains all request data.
+Common attributes:
+Attribute	Description
+request.method	GET / POST
+request.GET	Query parameters
+request.POST	Form data
+request.user	Logged-in user
+request.path	URL path
+Example:
+def test(request):
+    return HttpResponse(request.method)
+
+
+Blog homepage – displays the latest few entries.
+Entry “detail” page – permalink page for a single entry.
+Year-based archive page – displays all months with entries in the given year.
+Month-based archive page – displays all days with entries in the given month.
+Day-based archive page – displays all entries in the given day.
+Comment action – handles posting comments to a given entry.
+In our poll application, we’ll have the following four views:
+Question “index” page – displays the latest few questions.
+Question “detail” page – displays a question text, with no results but with a form to vote.
+Question “results” page – displays results for a particular question.
+Vote action – handles voting for a particular choice in a particular question

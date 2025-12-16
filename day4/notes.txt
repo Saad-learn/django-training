@@ -1,0 +1,78 @@
+Templates Folder Structure:
+Django uses HTML templates to generate dynamic web pages.
+Recommended Structure
+project/
+│
+├── app/
+│   ├── templates/
+│   │   └── app/
+│   │       ├── base.html
+│   │       ├── home.html
+│   │       ├── about.html
+│   │       └── navbar.html
+│   ├── views.py
+│   └── urls.py
+│
+├── templates/          (optional global templates)
+│   └── base.html
+
+Why templates/app/?
+Avoids name conflicts between apps
+Django automatically finds templates when APP_DIRS=True
+
+2. Django Template Language (DTL):
+DTL allows dynamic content inside HTML.
+
+DTL uses:
+{{ }} → Variables
+{% %} → Logic (loops, conditions)
+{# #} → Comments
+DTL is safe, secure, and Python-like.
+
+3. Variables, Loops, and Conditions
+Variables:
+<h2>{{ name }}</h2>
+
+
+Passed from view:
+{'name': 'Django'}
+
+Loops:
+<ul>
+{% for item in items %}
+    <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+Conditions:
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}</p>
+{% else %}
+    <p>Please login</p>
+{% endif %}
+
+4. Template Inheritance (extends, block):
+Template inheritance avoids repetition.
+
+Base Template:
+Defines common layout:
+Header
+Navbar
+Footer
+
+Child Template:
+Overrides only required sections.
+Syntax:
+{% extends 'app/base.html' %}
+{% block content %}
+    Page content
+{% endblock %}
+
+5. Includes (include)
+Used to reuse small template parts.
+Example:
+{% include 'app/navbar.html' %}
+Used for:
+Navbar
+Footer
+Sidebar
