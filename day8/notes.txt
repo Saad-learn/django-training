@@ -1,0 +1,23 @@
+bound and unbound:
+* bound to a set of data, it’s capable of validating that data and rendering the form as HTML with the data displayed in the HTML.
+* unbound, it cannot do validation (because there’s no data to validate!), but it can still render the blank form as HTML.
+
+for error validation 
+f.errors.as_data()
+f.errors.as_json()  #point the error with its code
+
+if some field and its value is invalid or blank raise s an error
+
+form.has_error(field , code=None)
+#this will run the code properly and ignore the error if it have and return true
+
+form.non_field_errors()
+this will return all the validation error  that are in the code oor something missing 
+
+field_name = forms.FieldType(**optional)
+
+required :	By default, each Field class assumes the value is required, so to make it not required you need to set required=False
+label :	The label argument lets you specify the “human-friendly” label for this field. This is used when the Field is displayed in a Form.
+label_suffix :	The label_suffix argument lets you override the form’s label_suffix on a per-field basis.
+widget :	The widget argument lets you specify a Widget class to use when rendering this Field. See Widgets for more information.
+help_text :	The help_text argument lets you specify descriptive text for this Field. If you provide help_text, it will be displayed next to the Field when the Field is rendered by one of the convenience Form methods.

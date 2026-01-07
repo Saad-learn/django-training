@@ -1,0 +1,62 @@
+python manage.py shell
+from blog.models import post  #import from blog name of app
+from djanngo.contrib.auth.models import user
+user.object.all()  # all user 
+user.objects.first() #give first user
+user.objects.filter(username='saad') # give the queryset and give one user
+user.objects.filter(username='saad').first() # give the first user
+user = user.objects.filter(username='saad').first()   # store the first user in user and captuere in user
+user.id  # give id
+user.pk  #
+user = user.objects.get(id=1)
+user #give the user by id =1=saad
+post.objects.all()   #give no post bcz no post is yet created
+post_1 = Post(title='blog1', content='firstp ost content!', author=user)
+post_1.save() # save the post
+post.objects.all() # give the first post you created
+exit()
+from blog.models import Post
+from django.contrib.auth.models import  user
+post.objects.all() # give the al post you created
+user = user.objects.flter(username='saad').first()
+post_2=post(title='blog2', content='second post content!', author=user)
+post_2.save()
+post.objects.all()
+post.date_posted
+post.author
+post.author.email
+user
+user.post_set
+user.post_set.all()
+user.post_set.create()   #user for creating a post  not need to write author=user
+
+
+proxy model: can not make new table in the database
+but add new methods and ordering
+
+meta proxy: can not make a new table in the database 
+but add save delete effect th eoriginal table in the database
+
+one to one field  mean: 
+one student have one profile  and one profile  have on student 
+
+many to many fieeld mean :
+one student have many course and one course have many studnets
+
+one to many field mean :
+one studnet have one department and one department have many studnets
+
+custom field inheritance:
+it is the class that is inherit too the other class 
+but it is not stored in the database tables 
+the fields in the custom field are inherted to the other class 
+in which it is called 
+
+uppercasefield :
+change the name oor any think in which it is used coonvert it syntax to uppercase letter
+
+there is the use of meta proxy as mention earlier 
+adult if greater then 18 
+other wise nothing happen code run same as usual
+
+make the record of studnet form admin easy way 

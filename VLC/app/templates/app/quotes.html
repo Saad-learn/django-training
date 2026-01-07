@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote of the day</title>
+</head>
+<body>
+    <h1>Quote of the day</h1>
+    <p> {{ quote }} </p>
+    <ul>
+        {% for q in all_quotes %}
+            <li> {{ q }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if quote %}
+        Today quote is {{ quote }}
+    {% else %}
+        No quote for  Today
+    {% endif %}
+</body>
+</html>
