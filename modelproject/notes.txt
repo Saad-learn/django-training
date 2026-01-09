@@ -1,0 +1,8 @@
+custom django model fields
+verbose name
+blank=True forms validation
+Null=True database sto=orage
+inheritance
+
+
+sameer : atomic transcations

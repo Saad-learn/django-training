@@ -9,15 +9,15 @@ from .models import (
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('id', 'name',)
-    search_field = ('name',)
+    search_fields = ('name',)
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_dispay = ('code', 'title', 'credits',)
+    list_display = ('code', 'title', 'credits',)
     search_fields = ('title', 'code',)
     list_filter = ('credits',)
 
-class EnrollmentInnline(admin.TabularInline):
+class EnrollmentInline(admin.TabularInline):
     model = Enrollment
     extra = 1
 
@@ -32,7 +32,7 @@ class StudentAdmin(admin.ModelAdmin):
     )
     list_filter = ('department',)
     search_fields = ('first_name', 'last_name', 'email',)
-    inlines = [EnrollmentInnline]
+    inlines = [EnrollmentInline]
 
 @admin.register(Enrollment)
 class EnrollmentAdmin(admin.ModelAdmin):
@@ -43,4 +43,4 @@ class EnrollmentAdmin(admin.ModelAdmin):
         'grade'
     )
     list_filter = ('course', 'grade',)
-    search_fields = ('student__first_name', 'studnet__last_name',)
+    search_fields = ('student__first_name', 'student__last_name',)

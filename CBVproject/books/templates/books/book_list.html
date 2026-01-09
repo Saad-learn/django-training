@@ -1,0 +1,23 @@
+{% extends 'books/base.html' %}
+{% block content %}
+<h2>Book List</h2>
+<p>{{ extra_info }}</p>
+
+<form method="get">
+    <input type="text" name="title" placeholder="Search by title">
+    <input type="submit" value="Search">
+</form>
+
+<ul>
+    {% for book in books %}
+    <li>
+        <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a>
+        ({{ book.author }}) - ${{ book.price }}
+        <a href="{% url 'book_update' book.pk %}">Edit</a>
+        <a href="{% url 'book_delete' book.pk %}">Delete</a>
+    </li>
+    {% empty %}
+    <li>No books available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

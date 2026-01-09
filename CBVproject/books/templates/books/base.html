@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookstore</title>
+</head>
+<body>
+    <h1>{% if welcome %}{{ welcome }}{% else %}Bookstore{% endif %}</h1>
+    <nav>
+        <a href="{% url 'book_list' %}">Books</a> |
+        <a href="{% url 'book_create' %}">Add Book</a>
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>

@@ -19,7 +19,7 @@ class Student(models.Model):
     )
 
     courses = models.ManyToManyField(
-        'Course',         # string reference
+        'Course',
         through='Enrollment',
         related_name='students'
     )
