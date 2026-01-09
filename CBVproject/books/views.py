@@ -1,53 +1,42 @@
+from django.views.generic import TemplateView, DeleteView, UpdateView, CreateView, ListView, DetailView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
 from .forms import BookForm
 from .models import Book
 
-#home
-def home_view(request):
-    return render(request, "books/base.html")
+class HomeView(TemplateView):
+    template_name = "books/base.html"
 
-#list
-def book_list_view(request):
-    books = Book.objects.all()
-    return render(request, "books/book_list.html", {"books": books})
+class BookListView(ListView):
+    model = Book
+    template_name = "books/book_list.html"
+    context_object_name = "books"
 
-#detail
-def book_detail_view(request, pk):
-    book = get_object_or_404(Book, pk=pk)
-    return render(request, "books/book_detail.html", {"book": book})
+class BookDetailView(DetailView):
+    model = Book
+    template_name = "books/book_detail.html"
+    context_object_name = "book"
 
-#create
-@login_required
-def book_create_view(request):
-    if request.method == "POST":
-        form = BookForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("book_list")
-    else:
-        form = BookForm()
-    return render(request, "books/book_form.html", {"form": form})
+@method_decorator(login_required, name="dispatch")
+class BookCreateView(LoginRequiredMixin, CreateView):
+    model = Book
+    form_class = BookForm
+    template_name = "books/book_form.html"
+    success_url = reverse_lazy("book_list")
 
-#update
-@login_required
-def book_update_view(request, pk):
-    book = get_object_or_404(Book, pk=pk)
-    if request.method == "POST":
-        form = BookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect("book_list")
-    else:
-        form = BookForm(instance=book)
-    return render(request, "books/book_form.html", {"form": form})
+@method_decorator(login_required, name="dispatch")
+class BookUpdateView(LoginRequiredMixin, UpdateView):
+    model = Book
+    form_class = BookForm
+    template_name = "books/book_form.html"
+    success_url = reverse_lazy("book_list")
 
-#del
-@login_required
-def book_delete_view(request, pk):
-    book = get_object_or_404(Book, pk=pk)
-    if request.method == "POST":
-        book.delete()
-        return redirect("book_list")
-    return render(request, "books/book_confirm_delete.html", {"book": book})
+@method_decorator(login_required, name = "dispatch")
+class BookDeleteView(LoginRequiredMixin, DeleteView):
+    model = Book
+    template_name = "books/book_confirm_delete.html"
+    success_url = reverse_lazy("book_list")
 
